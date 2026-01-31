@@ -1,0 +1,45 @@
+{
+	"schemaVersion": 1,
+	"id": "mouth-anim",
+	"version": "${version}",
+	"name": "Mouth Anim",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/mouth-anim/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"ninja.trek.mouthanim.MouthAnim"
+		],
+		"client": [
+			"ninja.trek.mouthanim.MouthAnimClient"
+		],
+		"modmenu": [
+			"ninja.trek.mouthanim.config.ModMenuIntegration"
+		]
+	},
+	"mixins": [
+		"mouth-anim.mixins.json",
+		{
+			"config": "mouth-anim.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"modmenu": "*",
+		"yet_another_config_lib_v3": "*"
+	}
+}
