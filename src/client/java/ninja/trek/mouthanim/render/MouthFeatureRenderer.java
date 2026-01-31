@@ -21,15 +21,15 @@ public class MouthFeatureRenderer extends RenderLayer<AvatarRenderState, PlayerM
     private static final Identifier MOUTH_TEXTURE =
             Identifier.fromNamespaceAndPath(MouthAnim.MOD_ID, "textures/mouth_states.png");
 
-    // Sprite sheet: 16x16 texture, 4 frames stacked vertically, each frame is 16x4 px
+    // Sprite sheet: 8x32 texture, 4 frames stacked vertically, each frame is 8x8 px
     private static final float FRAME_HEIGHT_UV = 0.25f;
 
-    // Quad dimensions in model space (1/16 of a block per pixel)
-    private static final float HALF_WIDTH = 2.0f / 16.0f;
-    private static final float HALF_HEIGHT = 1.0f / 16.0f;
+    // Quad dimensions in model space — full 8x8 face
+    private static final float HALF_WIDTH = 4.0f / 16.0f;
+    private static final float HALF_HEIGHT = 4.0f / 16.0f;
 
-    // Position offset: center of face, slightly below center
-    private static final float OFFSET_Y = -1.0f / 16.0f;
+    // Position offset: centered on the face
+    private static final float OFFSET_Y = 0.0f;
     private static final float OFFSET_Z = -4.01f / 16.0f;
 
     public MouthFeatureRenderer(RenderLayerParent<AvatarRenderState, PlayerModel> parent) {

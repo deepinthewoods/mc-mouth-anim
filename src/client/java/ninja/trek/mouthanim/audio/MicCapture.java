@@ -13,9 +13,10 @@ public class MicCapture {
     private static final int BUFFER_SIZE = 1024;
     private static final float SMOOTHING_ALPHA = 0.3f;
 
-    private volatile double thresholdSlightlyOpen = 200.0;
-    private volatile double thresholdOpen = 800.0;
-    private volatile double thresholdWideOpen = 2000.0;
+    private volatile double maxRms = 500.0;
+    private volatile double pctSlightlyOpen = 10.0;
+    private volatile double pctOpen = 30.0;
+    private volatile double pctWideOpen = 60.0;
     private volatile String selectedMixer = "";
 
     private volatile MouthState currentState = MouthState.CLOSED;
@@ -26,16 +27,17 @@ public class MicCapture {
         return currentState;
     }
 
-    public void setThresholds(double slightlyOpen, double open, double wideOpen) {
-        this.thresholdSlightlyOpen = slightlyOpen;
-        this.thresholdOpen = open;
-        this.thresholdWideOpen = wideOpen;
+    public void setThresholds(double maxRms, double pctSlightlyOpen, double pctOpen, double pctWideOpen) {
+        this.maxRms = maxRms;
+        this.pctSlightlyOpen = pctSlightlyOpen;
+        this.pctOpen = pctOpen;
+        this.pctWideOpen = pctWideOpen;
     }
 
     public void setMixer(String mixerName) {
         String oldMixer = this.selectedMixer;
-        this.selectedMixer = mixerName;
-        if (!oldMixer.equals(mixerName)) {
+        this.selectedMixer = mixerName == null ? "" : mixerName;
+        if (!oldMixer.equals(this.selectedMixer)) {
             restart();
         }
     }
@@ -138,9 +140,10 @@ public class MicCapture {
     }
 
     private MouthState mapToState(double rms) {
-        if (rms >= thresholdWideOpen) return MouthState.WIDE_OPEN;
-        if (rms >= thresholdOpen) return MouthState.OPEN;
-        if (rms >= thresholdSlightlyOpen) return MouthState.SLIGHTLY_OPEN;
+        double max = this.maxRms;
+        if (rms >= max * pctWideOpen / 100.0) return MouthState.WIDE_OPEN;
+        if (rms >= max * pctOpen / 100.0) return MouthState.OPEN;
+        if (rms >= max * pctSlightlyOpen / 100.0) return MouthState.SLIGHTLY_OPEN;
         return MouthState.CLOSED;
     }
 

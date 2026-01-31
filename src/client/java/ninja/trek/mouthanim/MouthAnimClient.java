@@ -23,7 +23,7 @@ public class MouthAnimClient implements ClientModInitializer {
         MouthAnimConfig config = MouthAnimConfig.HANDLER.instance();
 
         // Apply config to mic capture
-        micCapture.setThresholds(config.thresholdSlightlyOpen, config.thresholdOpen, config.thresholdWideOpen);
+        micCapture.setThresholds(config.maxRms, config.thresholdSlightlyOpen, config.thresholdOpen, config.thresholdWideOpen);
         micCapture.setMixer(config.selectedMixer);
 
         // Start microphone capture
@@ -48,7 +48,7 @@ public class MouthAnimClient implements ClientModInitializer {
     }
 
     public static void applyConfig(MouthAnimConfig config) {
-        micCapture.setThresholds(config.thresholdSlightlyOpen, config.thresholdOpen, config.thresholdWideOpen);
+        micCapture.setThresholds(config.maxRms, config.thresholdSlightlyOpen, config.thresholdOpen, config.thresholdWideOpen);
         micCapture.setMixer(config.selectedMixer);
     }
 

@@ -15,13 +15,16 @@ public class MouthAnimConfig {
             .build();
 
     @SerialEntry
-    public double thresholdSlightlyOpen = 200.0;
+    public double maxRms = 500.0;
 
     @SerialEntry
-    public double thresholdOpen = 800.0;
+    public double thresholdSlightlyOpen = 10.0;
 
     @SerialEntry
-    public double thresholdWideOpen = 2000.0;
+    public double thresholdOpen = 30.0;
+
+    @SerialEntry
+    public double thresholdWideOpen = 60.0;
 
     @SerialEntry
     public String selectedMixer = "";
